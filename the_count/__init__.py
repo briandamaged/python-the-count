@@ -22,6 +22,24 @@ class TheCount(object):
     """
     return self.get(key, 0)
 
+  def iteritems(self):
+    return self.sums.iteritems()
+
+  def iterkeys(self):
+    return self.sums.iterkeys()
+
+  def itervalues(self):
+    return self.sums.itervalues()
+
+  def __iter__(self):
+    return iter(self.sums)
+
+  def __list__(self):
+    return list(self.sums)
+
+  def clear(self):
+    return self.sums.clear()
+
   def __len__(self):
     return len(self.sums)
 

@@ -90,3 +90,18 @@ def test_total_returns_0_if_key_was_never_tallied():
     c.tally("foo")
 
   assert c.total("bar") == 0
+
+
+def test_iter_methods_work_as_expected():
+  c = TheCount()
+  c.tally("foo")
+  c.tally("bar")
+  c.tally("foo")
+  c.tally(4.2)
+  c.tally((1, 2, 3))
+
+  assert set(iter(c)) == set(["foo", "bar", 4.2, (1, 2, 3)])
+  assert set(c.iterkeys()) == set(["foo", "bar", 4.2, (1, 2, 3)])
+  assert set(c.itervalues()) == set([2, 1])
+  assert set(c.iteritems()) == set([("foo", 2), ("bar", 1), (4.2, 1), ((1, 2, 3), 1)])
+
