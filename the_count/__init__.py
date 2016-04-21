@@ -15,6 +15,13 @@ class TheCount(object):
   def get(self, key, *args):
     return self.sums.get(key, *args)
 
+  def total(self, key):
+    """
+    Returns the number of times the key has occurred, or 0
+    if the key was never encountered.
+    """
+    return self.get(key, 0)
+
   def __len__(self):
     return len(self.sums)
 
@@ -22,7 +29,7 @@ class TheCount(object):
     keys = set(self.keys() + counter.keys())
     sums = {}
     for k in keys:
-      sums[k] = self.get(k, 0) + counter.get(k, 0)
+      sums[k] = self.total(k) + counter.total(k)
 
     return TheCount(sums)
 

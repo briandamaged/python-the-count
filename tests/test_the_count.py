@@ -1,4 +1,6 @@
 
+import random
+
 from the_count import TheCount
 
 def test_len_returns_number_of_unique_keys():
@@ -69,3 +71,22 @@ def test_counts_can_be_aggregated():
   assert orlok["THREE"] == 2
   assert orlok[4.0] == 2
 
+
+def test_total_returns_number_of_occurrences_when_key_was_tallied():
+  c = TheCount()
+
+  times = random.randint(3, 10)
+  for _ in xrange(times):
+    c.tally("foo")
+
+  assert c.total("foo") == times
+
+
+def test_total_returns_0_if_key_was_never_tallied():
+  c = TheCount()
+
+  times = random.randint(3, 10)
+  for _ in xrange(times):
+    c.tally("foo")
+
+  assert c.total("bar") == 0
