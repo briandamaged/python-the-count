@@ -82,6 +82,22 @@ def test_total_returns_number_of_occurrences_when_key_was_tallied():
   assert c.total("foo") == times
 
 
+def test_get_returns_0_by_default():
+  c = TheCount()
+
+  times = random.randint(3, 10)
+  for _ in xrange(times):
+    c.tally("foo")
+
+  assert c.get("foo") == times
+  assert c.get("bar") == 0
+
+
+def test_total_returns_0_when_no_keys_are_requested():
+  c = TheCount()
+  assert c.total() == 0
+
+
 def test_total_returns_0_if_key_was_never_tallied():
   c = TheCount()
 
@@ -89,8 +105,25 @@ def test_total_returns_0_if_key_was_never_tallied():
   for _ in xrange(times):
     c.tally("foo")
 
+  assert c.total("foo") == times
   assert c.total("bar") == 0
 
+
+def test_total_returns_the_sum_of_the_specified_keys():
+  c = TheCount()
+
+  foo_times = random.randint(3, 10)
+  for _ in xrange(foo_times):
+    c.tally("foo")
+
+  bar_times = random.randint(3, 10)
+  for _ in xrange(bar_times):
+    c.tally("bar")
+
+  assert c.total("foo") == foo_times
+  assert c.total("bar") == bar_times
+  assert c.total("foo", "bar") == foo_times + bar_times
+  assert c.total("foo", "bar", "quux") == foo_times + bar_times
 
 def test_iter_methods_work_as_expected():
   c = TheCount()

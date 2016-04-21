@@ -12,15 +12,15 @@ class TheCount(object):
   def __getitem__(self, key):
     return self.sums[key]
 
-  def get(self, key, *args):
-    return self.sums.get(key, *args)
+  def get(self, key, d = 0):
+    return self.sums.get(key, d)
 
-  def total(self, key):
+  def total(self, *keys):
     """
     Returns the number of times the key has occurred, or 0
     if the key was never encountered.
     """
-    return self.get(key, 0)
+    return sum((self.get(k) for k in keys))
 
   def grand_total(self):
     """

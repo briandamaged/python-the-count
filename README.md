@@ -28,6 +28,8 @@ print(c.total("foo"))  # Prints: 2
 print(c.total("bar"))  # Prints: 1
 print(c.total("quux")) # Prints: 0
 
+print(c.total("foo", "bar", "quux"))  # Prints: 3
+
 print(c.grand_total()) # Prints: 4
 
 # TheCount supports most (all?) of the iteration functions
