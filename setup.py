@@ -9,5 +9,5 @@ setup(
     packages = find_packages(exclude = ["tests"]),
     install_requires = [],
     test_suite = 'tests',
-    tests_require = ["mock>=1.0.0"]
+    tests_require = ["pytest>=2.8.2"]
 )
