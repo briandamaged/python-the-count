@@ -105,3 +105,14 @@ def test_iter_methods_work_as_expected():
   assert set(c.itervalues()) == set([2, 1])
   assert set(c.iteritems()) == set([("foo", 2), ("bar", 1), (4.2, 1), ((1, 2, 3), 1)])
 
+
+def test_clear_resets_the_sums():
+  c = TheCount()
+  c.tally("foo")
+  c.tally("bar")
+
+  assert len(c) == 2
+
+  c.clear()
+
+  assert len(c) == 0
