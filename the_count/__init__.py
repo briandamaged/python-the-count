@@ -29,6 +29,17 @@ class TheCount(object):
     """
     return sum(self.itervalues())
 
+  def consolidate(self, mapping):
+    """
+    Returns a new TheCount instance that consolidates many
+    terms into a single entry.  This is useful for summarizing
+    datasets.
+    """
+    sums = {}
+    for k, terms in mapping.iteritems():
+      sums[k] = self.total(*terms)
+    return TheCount(sums)
+
   def select(self, func):
     """
     Create a new TheCount instance that only retains that

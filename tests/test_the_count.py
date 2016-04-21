@@ -229,3 +229,31 @@ def test_select_and_reject_do_not_modify_the_original_TheCount_instance():
   e = c.reject(lambda k, v: v > 3)
   assert set(c.keys()) == set(["apple", "banana", "carrot", 42])
   assert set(e.keys()) == set(["banana", 42])
+
+
+def test_consolidate():
+  c = TheCount()
+  c.tally("january", 2)
+  c.tally("february", 3)
+  c.tally("march", 1)
+  c.tally("may", 5)
+  c.tally("june", 4)
+  c.tally("july", 9)
+  c.tally("august", 14)
+  c.tally("september", 8)
+  c.tally("october", 5)
+  c.tally("november", 1)
+
+  d = c.consolidate({
+    "winter": ["december", "january", "february", "march"],
+    "spring": ["march", "april", "may", "june"],
+    "summer": ["june", "july", "august", "september"],
+    "autumn": ["september", "october", "november", "december"]
+  })
+
+  assert set(d.keys()) == set(["winter", "spring", "summer", "autumn"])
+  assert d.get("winter") == 6
+  assert d.get("spring") == 10
+  assert d.get("summer") == 35
+  assert d.get("autumn") == 14
+
