@@ -116,3 +116,18 @@ def test_clear_resets_the_sums():
   c.clear()
 
   assert len(c) == 0
+
+
+def test_grand_total_sums_everything_up():
+  c = TheCount()
+
+  for _ in xrange(5):
+    c.tally("foo")
+
+  for _ in xrange(2):
+    c.tally("bar")
+
+  for _ in xrange(4):
+    c.tally(153)
+
+  assert c.grand_total() == 11

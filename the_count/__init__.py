@@ -22,6 +22,13 @@ class TheCount(object):
     """
     return self.get(key, 0)
 
+  def grand_total(self):
+    """
+    Returns the total number of things that were tallied.
+    AKA: It's the sum of everything.
+    """
+    return sum(self.itervalues())
+
   def iteritems(self):
     return self.sums.iteritems()
 
