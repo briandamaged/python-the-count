@@ -85,16 +85,15 @@ class TheCount(object):
     return len(self.sums)
 
   def __add__(self, counter):
-    keys = set(self.keys() + counter.keys())
-    sums = {}
-    for k in keys:
-      sums[k] = self.total(k) + counter.total(k)
+    new_count = TheCount(self.sums.copy())
+    new_count.update(counter)
+    return new_count
 
-    return TheCount(sums)
+  def update(self, counter):
+    for key, total in counter.iteritems():
+      self.tally(key, total)
 
   def __str__(self):
     return str(self.sums)
 
   __repr__ = __str__
-
-
