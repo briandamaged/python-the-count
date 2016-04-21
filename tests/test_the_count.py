@@ -21,7 +21,7 @@ def test_len_returns_number_of_unique_keys():
   assert len(c) == 2
 
 
-def test_it_counts_stuff():
+def test_tally_counts_stuff():
   c = TheCount()
 
   assert set(c.keys()) == set()
@@ -33,18 +33,19 @@ def test_it_counts_stuff():
   assert c["foo"] == 3
 
   for _ in xrange(2):
-    c.tally(10)
+    c.tally(10, 2)
 
   assert set(c.keys()) == set(["foo", 10])
   assert c["foo"] == 3
-  assert c[10] == 2
+  assert c[10] == 4
 
   for _ in xrange(2):
     c.tally("foo")
 
   assert set(c.keys()) == set(["foo", 10])
   assert c["foo"] == 5
-  assert c[10] == 2
+  assert c[10] == 4
+
 
 
 def test_counts_can_be_aggregated():

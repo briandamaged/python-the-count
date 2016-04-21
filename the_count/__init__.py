@@ -3,8 +3,8 @@ class TheCount(object):
   def __init__(self, sums = None):
     self.sums = sums or {}
 
-  def tally(self, thing):
-    self.sums[thing] = self.sums.get(thing, 0) + 1
+  def tally(self, thing, count = 1):
+    self.sums[thing] = self.sums.get(thing, 0) + count
 
   def keys(self):
     return self.sums.keys()
