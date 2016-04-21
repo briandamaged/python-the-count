@@ -18,3 +18,8 @@ class Converter(Proxy):
   def get(self, key, *args):
     return self._child.get(self.converter(key), *args)
 
+  def consolidate(self, mapping):
+    new_mapping = {}
+    for k, terms in mapping.iteritems():
+      new_mapping[self.converter(k)] = (self.converter(t) for t in terms)
+    return self.replicate(self._child.consolidate(new_mapping))
