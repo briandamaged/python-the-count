@@ -29,6 +29,29 @@ class TheCount(object):
     """
     return sum(self.itervalues())
 
+  def select(self, func):
+    """
+    Create a new TheCount instance that only retains that
+    key/value pairs such that func(key, value) == True
+    """
+    new_sum = {}
+    for k, v in self.iteritems():
+      if func(k, v):
+        new_sum[k] = v
+    return TheCount(new_sum)
+
+  def reject(self, func):
+    """
+    Create a new TheCount instance that only retains that
+    key/value pairs such that func(key, value) == False
+    """
+    new_sum = {}
+    for k, v in self.iteritems():
+      if not func(k, v):
+        new_sum[k] = v
+    return TheCount(new_sum)
+
+
   def iteritems(self):
     return self.sums.iteritems()
 

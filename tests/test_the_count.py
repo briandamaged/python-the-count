@@ -131,3 +131,67 @@ def test_grand_total_sums_everything_up():
     c.tally(153)
 
   assert c.grand_total() == 11
+
+
+def test_select_keeps_iteritems_such_that_func_returns_something_truthy():
+  c = TheCount()
+  for _ in xrange(6):
+    c.tally("apple")
+
+  for _ in xrange(2):
+    c.tally("banana")
+
+  for _ in xrange(10):
+    c.tally("carrot")
+
+  for _ in xrange(3):
+    c.tally(42)
+
+  d = c.select(lambda k, v: v > 3)
+  assert set(d.keys()) == set(["apple", "carrot"])
+  assert d["apple"] == 6
+  assert d["carrot"] == 10
+
+
+def test_reject_keeps_iteritems_such_that_func_returns_something_falsey():
+  c = TheCount()
+  for _ in xrange(6):
+    c.tally("apple")
+
+  for _ in xrange(2):
+    c.tally("banana")
+
+  for _ in xrange(10):
+    c.tally("carrot")
+
+  for _ in xrange(3):
+    c.tally(42)
+
+  d = c.reject(lambda k, v: v > 3)
+  assert set(d.keys()) == set(["banana", 42])
+  assert d["banana"] == 2
+  assert d[42] == 3
+
+
+
+def test_select_and_reject_do_not_modify_the_original_TheCount_instance():
+  c = TheCount()
+  for _ in xrange(6):
+    c.tally("apple")
+
+  for _ in xrange(2):
+    c.tally("banana")
+
+  for _ in xrange(10):
+    c.tally("carrot")
+
+  for _ in xrange(3):
+    c.tally(42)
+
+  d = c.select(lambda k, v: v > 3)
+  assert set(c.keys()) == set(["apple", "banana", "carrot", 42])
+  assert set(d.keys()) == set(["apple", "carrot"])
+
+  e = c.reject(lambda k, v: v > 3)
+  assert set(c.keys()) == set(["apple", "banana", "carrot", 42])
+  assert set(e.keys()) == set(["banana", 42])
