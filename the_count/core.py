@@ -37,7 +37,9 @@ class TheCount(object):
     """
     sums = {}
     for k, terms in mapping.iteritems():
-      sums[k] = self.total(*terms)
+      total = self.total(*terms)
+      if total > 0:
+        sums[k] = total
     return TheCount(sums)
 
   def select(self, func):

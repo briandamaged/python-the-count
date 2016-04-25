@@ -248,7 +248,10 @@ def test_consolidate():
     "winter": ["december", "january", "february", "march"],
     "spring": ["march", "april", "may", "june"],
     "summer": ["june", "july", "august", "september"],
-    "autumn": ["september", "october", "november", "december"]
+    "autumn": ["september", "october", "november", "december"],
+
+    # Ignore a key if there are 0 occurrences
+    "ignore": ["fooooo"]
   })
 
   assert set(d.keys()) == set(["winter", "spring", "summer", "autumn"])
